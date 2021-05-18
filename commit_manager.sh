@@ -1,8 +1,12 @@
 #!/bin/bash
-directory="/home/xypnox/Projects/self/commit_manager"
+
+# Configs
+directory="/home/xypnox/notes/"
+
 cd $directory
 
 branch=`date +%F`
+date_human=`date +"%H:%M:%S %d %b %F"`
 
 branch_exists=`git show-ref refs/heads/${branch}`
 num_changes=`git status --porcelain=v1 2>/dev/null | wc -l`
@@ -35,7 +39,12 @@ create_commit() {
   then
     echo "Committing and pushing changes!"
     git add --all
-    git commit -m "Auto Commit" -m "Porecellain: $gstatus"
+    if [[ -n "$1" ]]
+      then
+        git commit -m "$1" -m "Porecellain: $gstatus"
+      else
+        git commit -m "Auto Commit" -m "Porecellain: $gstatus"
+    fi
   fi
 }
 
@@ -60,9 +69,11 @@ create_squash_commit_push() {
   # Create squash commit from $1
   git checkout main
 
+  local gcherry=`git cherry -v main $1`
+
   git merge --squash $1
 
-  create_commit
+  create_commit $date_human
 
   git push origin main
 }
