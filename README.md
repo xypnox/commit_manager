@@ -1,4 +1,4 @@
-# commit_manager
+![Banner](Banner.png)
 
 Setup-and-forget automated commit and push for git with linear daily commit history.
 
