@@ -1,8 +1,8 @@
 # commit_manager
 
-Manage commits like a BOSS
+Setup-and-forget automated commit and push for git with linear daily commit history.
 
-Repo: https://github.com/xypnox/commit_manager
+For mac see the `commit_manager_mac.sh` script.
 
 Auto commit script
 
@@ -15,7 +15,9 @@ Auto commit script
 
 ## Setup
 
-> It is preferred that you use `ssh` to clone and setup git repo you want to track, this makes committing and pushing available for cronjobs without any setup fro auth.
+> It is preferred that you use `ssh` to clone and setup git repo you want to track, this makes committing and pushing available for cronjobs without any setup for auth.
+
+Although the script can work on it's own, it is better to setup a cronjob such that it runs automatically.
 
 - Copy the script to the root of the repo you want to track.
 - Update the config:

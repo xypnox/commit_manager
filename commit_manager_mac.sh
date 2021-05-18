@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Configs
-directory="/home/xypnox/notes/"
+directory="/Users/apple/notes/"
 
+PATH=/usr/local/bin:/usr/local/sbin:~/bin:/usr/bin:/bin:/usr/sbin:/sbin
 cd $directory
 
 branch=`date +%F`
-date_human=`date +"%H:%M:%S %d %b %F"`
+date_human=`date +'%H:%M:%S %d %b %F'`
 
 branch_exists=`git show-ref refs/heads/${branch}`
 num_changes=`git status --porcelain=v1 2>/dev/null | wc -l`
@@ -43,7 +44,7 @@ create_commit() {
       then
         git commit -m "$1" -m "Porecellain: $gstatus"
       else
-        git commit -m "$dateAuto Commit" -m "Porecellain: $gstatus"
+        git commit -m "Auto Commit" -m "Porecellain: $gstatus"
     fi
   fi
 }
@@ -79,11 +80,11 @@ create_squash_commit_push() {
 }
 
 prev_check() {
-  local prev_branch=`date -d "yesterday" +%F`
+  local prev_branch=`date -v-1d +%F`
   local prev_branch_exists=`git show-ref refs/heads/${prev_branch}`
 
   if [ -n "$prev_branch_exists" ]; then
-    echo "Prev branch not deleted, processing!"
+    echo -e "\nPrev branch not deleted, processing!"
     
     git-is-merged main $prev_branch
     is_merged=$?
@@ -103,7 +104,7 @@ prev_check() {
     git push --delete origin $prev_branch
 
   else
-    echo "Prev branch doesn't exist skipping"
+    echo -e "\nPrev branch doesn't exist skipping"
   fi
   
 }
@@ -115,11 +116,11 @@ main() {
   prev_check
 
   if [ -n "$branch_exists" ]; then
-    echo 'Daily Branch exists!'
+    echo -e '\nDaily Branch exists!'
     # Commit all stuff here
     commit_and_push $branch
   else
-    echo "Daily Branch doesn't exist!"
+    echo -e "\nDaily Branch doesn't exist!"
     git checkout main
     git checkout -b $branch
     commit_and_push_set_tracking $branch
