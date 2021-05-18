@@ -26,9 +26,9 @@ Although the script can work on it's own, it is better to setup a cronjob such t
   directory="/home/xypnox/notes/"
   ```
 - Setup a cronjob to run it every 10 minutes.
-  `*/10 * * * * bash /Users/apple/notes/commit_manager.sh`
+  `*/10 * * * * bash /Users/apple/notes/commit_manager_mac.sh`
 - Additionally if you want to setup a log file to see if the git commands errored and when, extend the cronjob as:
-  `*/10 * * * * bash /Users/apple/notes/commit_manager.sh >> /Users/apple/notes/commit_manager_log.txt 2>&1`
+  `*/10 * * * * bash /Users/apple/notes/commit_manager_mac.sh >> /Users/apple/notes/commit_manager_log.txt 2>&1`
 
 ## TODO
 
