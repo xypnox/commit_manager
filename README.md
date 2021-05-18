@@ -43,10 +43,10 @@ Auto commit script
 For every 10 minutes do:
 
 - Check if the previous day's branch is merged
-  - If not do so
-  - After merge, push master and delete yesterday's branch
+  - If not commit and merge it
+  - After merge, push `main` and delete yesterday's branch
     - Remote and local
-- Check if the main after prev merge is pushed
+- Check if the `main` after prev merge is pushed
   - If not do so
 - Create today's branch if it doesn't exist
 - If there are any changes
