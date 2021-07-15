@@ -11,11 +11,11 @@ date_human=`date +"%H:%M:%S %d %b %F"`
 branch_exists=`git show-ref refs/heads/${branch}`
 num_changes=`git status --porcelain=v1 2>/dev/null | wc -l`
 
-git-is-merged () {
-  # I am using the following bash function like: 
+git_is_merged() {
+  # I am using the following bash function like:
   # git-is-merged develop feature/new-feature
   # https://stackoverflow.com/a/49434212/
-  
+
   merge_destination_branch=$1
   merge_source_branch=$2
 
@@ -51,7 +51,7 @@ create_commit() {
 
 commit_and_push() {
   git checkout $1
-  
+
   create_commit
 
   git push origin $1
@@ -59,7 +59,7 @@ commit_and_push() {
 
 commit_and_push_set_tracking() {
   git checkout $1
-  
+
   create_commit
 
   git push -u origin $1
@@ -84,11 +84,11 @@ prev_check() {
 
   if [ -n "$prev_branch_exists" ]; then
     echo "Prev branch not deleted, processing!"
-    
-    git-is-merged main $prev_branch
+
+    git_is_merged main $prev_branch
     is_merged=$?
     echo $is_merged
-    
+
     if [ $is_merged -eq 0 ]; then
       echo "$prev_branch merged"
     else
@@ -96,7 +96,7 @@ prev_check() {
       commit_and_push $prev_branch
       create_squash_commit_push $prev_branch
     fi
-    
+
     # Delete prev day's branch
     git checkout main
     git branch -D $prev_branch
@@ -105,7 +105,7 @@ prev_check() {
   else
     echo "Prev branch doesn't exist skipping"
   fi
-  
+
 }
 
 main() {
